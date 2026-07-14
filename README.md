@@ -18,6 +18,7 @@ https://opensource-demo.orangehrmlive.com/
 
 - Browser Launch
 - Valid Login
+- Invalid login
 
 ## Project Structure
 
@@ -33,7 +34,7 @@ src/test/java
 
 ✔ Valid Login
 
-⏳ Invalid Login
+✔ Invalid Login
 
 ⏳ Logout
 
