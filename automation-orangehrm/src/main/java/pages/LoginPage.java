@@ -1,11 +1,13 @@
 package pages;
 
 // Import By class to locate web elements
+import dev.failsafe.internal.util.Assert;
 import org.openqa.selenium.By;
 
 // Import WebDriver to control the browser
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -27,6 +29,9 @@ public class LoginPage {
     // Locator for Dashboard heading (used to verify successful login)
     By dashboardHeader = By.xpath("//h6[text()='Dashboard']");
     By invalidCredentialsMessage = By.xpath("//p[text()='Invalid credentials']");
+    By profileDropdown = By.className("oxd-userdropdown-tab");
+    By logoutLink = By.xpath("//a[text()='Logout']");
+    By loginPageHeader = By.xpath("//h5[text()='Login']");
 
     // Constructor to receive WebDriver from the test class
     public LoginPage(WebDriver driver) {
@@ -44,17 +49,29 @@ public class LoginPage {
 
         driver.findElement(loginButton).click();
     }
+    public void logout(){
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(profileDropdown)).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(logoutLink)).click();
+
+
+    }
 
     // Verify whether Dashboard is displayed after login
     public boolean isDashboardDisplayed() {
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         return wait.until(ExpectedConditions.visibilityOfElementLocated(dashboardHeader)).isDisplayed();
     }
     public String getInvalidCredentialsMessage(){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
        return wait.until(ExpectedConditions.visibilityOfElementLocated(invalidCredentialsMessage)).getText();
+
+    }
+    public boolean isLoginpageDisplyed(){
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(loginPageHeader)).isDisplayed();
 
     }
 }
