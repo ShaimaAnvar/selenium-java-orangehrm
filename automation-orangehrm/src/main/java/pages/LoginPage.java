@@ -26,6 +26,7 @@ public class LoginPage {
 
     // Locator for Dashboard heading (used to verify successful login)
     By dashboardHeader = By.xpath("//h6[text()='Dashboard']");
+    By invalidCredentialsMessage = By.xpath("//p[text()='Invalid credentials']");
 
     // Constructor to receive WebDriver from the test class
     public LoginPage(WebDriver driver) {
@@ -34,9 +35,9 @@ public class LoginPage {
 
     // Login method that accepts username and password
     public void login(String username, String password) {
-
+        //explicit wait
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
+        //wait for usernamnefield
         wait.until(ExpectedConditions.visibilityOfElementLocated(usernameField)).sendKeys(username);
 
         driver.findElement(passwordField).sendKeys(password);
@@ -50,5 +51,10 @@ public class LoginPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         return wait.until(ExpectedConditions.visibilityOfElementLocated(dashboardHeader)).isDisplayed();
+    }
+    public String getInvalidCredentialsMessage(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+       return wait.until(ExpectedConditions.visibilityOfElementLocated(invalidCredentialsMessage)).getText();
+
     }
 }
